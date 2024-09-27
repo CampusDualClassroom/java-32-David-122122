@@ -2,18 +2,22 @@ package com.campusdual.classroom;
 
 import com.campusdual.util.Utils;
 
-import java.io.BufferedWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
 
 public class Exercise32 {
 
     public static void main(String[] args) {
 
+        String s = "asdsd";
+        printToFile(s);
     }
 
     public static String generateStringToSave(String string) {
 
+        if(string == null)
+            return  generateUserInputToSave();
+        else
+            return string;
     }
 
     private static String generateUserInputToSave(){
@@ -28,6 +32,21 @@ public class Exercise32 {
 
     public static void printToFile(String string) {
 
+        try {
+
+            File file = new File("src/main/resources/data.txt");
+            if(!file.exists()){
+                file.getParentFile().mkdirs();
+                file.createNewFile();
+            }
+            FileWriter fw = new FileWriter(file,false);
+            for (int i = 0; i <string.length() ; i++) {
+                fw.write(string.charAt(i));
+            }
+            fw.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 
